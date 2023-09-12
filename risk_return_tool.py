@@ -17,8 +17,7 @@ def index_return():
 def vol(r):
     """
     std() use a numerator of -1 so we have to get the nb of elements/observation with shape[0]
-    Take a time series of returns, get the deviation, squared deviation and variance
-    to calculate the volatility with the same base as the series
+    Take a time series of returns, get the deviation, squared deviation and variance to calculate the volatility with the same base as the series
     """
     nb_months = r.shape[0]
     deviation = r - r.mean()
@@ -31,8 +30,7 @@ def vol(r):
 
 def annualized_vol(r):
     """
-    Take a time series of returns to calculate the volatility
-    and scale it to an annualized value
+    Taking a time series of returns to calculate the volatility and scaling it to an annualized value
     """
     an_vol = vol(r)*np.sqrt(12)
     return an_vol
@@ -66,7 +64,7 @@ def drawdown(data_series: pd.Series):
     take a time series of asset returns, computes and returns a DataFrame that contains:
     the wealth index : Equity value day by day/month by month/Year ...
     the previous peak : High
-    percent drawdown
+    the drawdown percentage
     """
     wealth_index = 1000*(1 + data_series).cumprod()
     previous_peaks = wealth_index.cummax()
@@ -82,7 +80,7 @@ def drawdown(data_series: pd.Series):
 
 def skewness(r):
     """alternative to scipy.stats.skew()
-    computes the skewness of the supplied Series or Dataframe
+    Computes the skewness of the supplied Series or Dataframe
     Returns a float or a series
     """
     demeaned_r = r - r.mean()
@@ -95,7 +93,7 @@ def skewness(r):
 
 def kurtosis(r):
     """alternative to scipy.stats.kurtosis()
-    computes the kurtosis of the supplied Series or Dataframe
+    Computes the kurtosis of the supplied Series or Dataframe
     Returns a float or a series
     """
     demeaned_r = r - r.mean()
@@ -111,7 +109,7 @@ def is_normal(r, level=0.01):
     """fix the issue for JB that it treat all the data like one massive set of returns, we want to run it on each data
     Applies the Jarque-Bera test to determine if a Series is normal or not
     Test is apploed at the 1% level by default
-    Returns Tru if the hypothesis of normality is accepted, False otherwise
+    Returns True if the hypothesis of normality is accepted, False otherwise
     """
     statistic, p_value = scipy.stats.jarque_bera(r)
     return p_value > level
