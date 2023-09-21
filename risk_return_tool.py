@@ -129,10 +129,25 @@ def semideviation(r):
 def sharpe_ratio(r, riskfree_rate):
     """r = Asset or Portfolio return
     riskfree_rate = RF Rate or Treasury yield
-    /!\ annualized_return & annualized_vol to be defined"""
+    /!\ annualized_return & annualized_vol to be defined
+    """
     excess_return = r - riskfree_rate
     annualized_excess_return = annualized_return(excess_return)
     annualized_volatility = annualized_vol(r)
-    sharpe_r = annualized_excess_return / annualized_volatility
-    return sharpe_r
+    sharpe = annualized_excess_return / annualized_volatility
+    return sharpe
+
+
+
+def information_ratio(returns, benchmark_returns):
+    """
+    returns = Series of portfolio returns.
+    benchmark_returns = Series of benchmark returns
+    /!\ annualized_return & annualized_vol to be defined
+    """
+    excess_returns = returns - benchmark_returns
+    annualized_excess_return = annualized_return(excess_returns)
+    tracking_error = annualized_vol(returns - benchmark_returns)
+    information_ratio = annualized_excess_return / tracking_error
+    return information_ratio
 
