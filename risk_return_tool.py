@@ -123,3 +123,16 @@ def semideviation(r):
     """
     is_negative = r < 0
     return r[is_negative].std(ddof=0)
+
+
+
+def sharpe_ratio(r, riskfree_rate):
+    """r = Asset or Portfolio return
+    riskfree_rate = RF Rate or Treasury yield
+    /!\ annualized_return & annualized_vol to be defined"""
+    excess_return = r - riskfree_rate
+    annualized_excess_return = annualized_return(excess_return)
+    annualized_volatility = annualized_vol(r)
+    sharpe_r = annualized_excess_return / annualized_volatility
+    return sharpe_r
+
